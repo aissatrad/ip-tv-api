@@ -7,9 +7,9 @@ api = Api(app)
 
 
 class IPTVApi(Resource):
-    def post(self):
-        name = request.form['name']
-        search_type = request.form['search_type']
+    def get(self):
+        name = request.args.get('name')
+        search_type = request.args.get('search_type')
         if search_type == "lang":
             return get_by_lang(name)
         elif search_type == "country":
