@@ -48,38 +48,7 @@ def get_by_lang(c):
     return [ob.__dict__ for ob in obj_list]
 
 def get_all_cats():
-    """
-    Weather
-    Comedy
-    Auto
-    Sports
-    Religious
-    Education
-    Culture
-    Business
-    Science
-    Legislative
-    Series
-    General
-    Entertainment
-    Movies
-    Animation
-    None
-    Family
-    Classic
-    Shop
-    Kids
-    XXX
-    Music
-    Lifestyle
-    Travel
-    Local
-    Outdoor
-    Cooking
-    News
-    Relax
-    Documentary
-    """
+
     return set(map(lambda x: x["category"], get_data()))
 
 
