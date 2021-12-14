@@ -53,8 +53,3 @@ def get_all_cats():
             cats.add(cat["name"])
 
     return cats
-
-
-# print(get_all_cats())
-
-print(get_by_country("us"))
