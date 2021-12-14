@@ -18,7 +18,7 @@ class Channel:
         return f"""Channel({self.channel_name}, {self.channel_url}) """
 
 
-def get_data(): return requests.get(api_url).json()
+def get_data(): return list(filter(lambda tv: tv["category"] != "XXX", requests.get(api_url).json()))
 
 
 def get_by_country(c):
