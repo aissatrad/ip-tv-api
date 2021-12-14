@@ -18,18 +18,17 @@ class Channel:
         return f"""Channel({self.channel_name}, {self.channel_url}) """
 
 
-def get_data(): return list(filter(lambda tv: tv["category"] != "XXX", requests.get(api_url).json()))
-
+def get_data(): return requests.get(api_url).json()
 
 def get_by_country(c):
     filter_country = list(
-        filter(lambda x: x["countries"] and c in [country["code"] for country in x["countries"]], get_data()))
+        filter(lambda x: x["countries"] and c.lower() in [country["code"].lower() for country in x["countries"]], get_data()))
     obj_list = list(map(lambda channel: Channel(channel["name"], channel["url"]), filter_country))
     return [ob.__dict__ for ob in obj_list]
 
 
 def get_by_category(c):
-    filter_category = list(filter(lambda x: x["category"] and x["category"].lower() == c.lower(), get_data()))
+    filter_category = list(filter(lambda x: x["categories"] and c.lower() in [g["name"].lower() for g in x["categories"]]  , get_data()))
     obj_list = list(map(lambda channel: Channel(channel["name"], channel["url"]), filter_category))
     return [ob.__dict__ for ob in obj_list]
 
@@ -48,7 +47,14 @@ def get_by_lang(c):
     return [ob.__dict__ for ob in obj_list]
 
 def get_all_cats():
+    cats = set()
+    for ch in get_data():
+        for cat in ch["categories"]:
+            cats.add(cat["name"])
 
-    return set(map(lambda x: x["category"], get_data()))
+    return cats
 
 
+# print(get_all_cats())
+
+print(get_by_country("us"))
